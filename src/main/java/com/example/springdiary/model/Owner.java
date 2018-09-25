@@ -39,6 +39,10 @@ public class Owner {
         return diary;
     }
 
+    public byte[] getSalt() {
+        return salt;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
