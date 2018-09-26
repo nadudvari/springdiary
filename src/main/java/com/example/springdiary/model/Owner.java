@@ -1,9 +1,6 @@
 package com.example.springdiary.model;
 
-import com.example.springdiary.util.PasswordHash;
-
 import javax.persistence.*;
-import java.security.NoSuchAlgorithmException;
 
 @Entity
 public class Owner {

@@ -2,7 +2,6 @@ package com.example.springdiary.service;
 
 import com.example.springdiary.model.Owner;
 import com.example.springdiary.repository.UserRepo;
-import com.example.springdiary.util.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
