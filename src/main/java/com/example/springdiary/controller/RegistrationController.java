@@ -25,7 +25,7 @@ public class RegistrationController {
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping(path = "/registration")
     public String registerUser(@ModelAttribute("owner") Owner owner) {
         if (userService.findUserByName(owner.getUsername()) != null) {
             return "Username already taken";
