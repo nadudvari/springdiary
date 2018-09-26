@@ -18,16 +18,20 @@ public class UserService {
         this.encoder = encoder;
     }
 
+    public void encodePassword(Owner owner) {
+        owner.setPassword(encoder.encode(owner.getPassword()));
+    }
+
     public Owner findUserByName(String username) {
         return userRepo.findByUsername(username);
     }
 
-    public boolean checkIfPasswordMatch(Owner owner, String password) {
+    public boolean checkIfPasswordMatch(String password, Owner owner) {
         return encoder.matches(password, owner.getPassword());
     }
 
     public void saveUser(Owner owner) {
-        owner.setPassword(encoder.encode(owner.getPassword()));
+        this.encodePassword(owner);
         userRepo.save(owner);
     }
 }
