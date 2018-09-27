@@ -15,8 +15,9 @@ public class Diary {
     @OneToOne
     private Owner owner;
 
-    public Diary(String name) {
+    public Diary(String name, Owner owner) {
         this.name = name;
+        this.owner = owner;
     }
 
     public Diary() {
