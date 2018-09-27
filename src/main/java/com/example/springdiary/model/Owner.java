@@ -15,7 +15,7 @@ public class Owner {
 
     public Owner(String username) {
         this.username = username;
-        this.diary = new Diary(username + "\'s Diary");
+        this.diary = new Diary(username + "\'s Diary", this);
     }
 
     public Owner() {
