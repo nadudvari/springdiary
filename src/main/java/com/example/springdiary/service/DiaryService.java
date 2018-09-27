@@ -19,6 +19,7 @@ public class DiaryService {
 
     public void createNewDiary(String diaryName, Owner owner) {
         Diary diary = new Diary(diaryName, owner);
+        owner.setDiary(diary);
         diaryRepo.save(diary);
     }
 }
