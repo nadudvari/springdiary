@@ -9,7 +9,7 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username;
-    @OneToOne
+    @OneToOne(mappedBy = "owner")
     private Diary diary;
     private String password;
 
