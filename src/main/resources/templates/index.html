@@ -47,14 +47,26 @@
             </form>
         </div>
         <div th:if="${session.user.getDiary()} != null">
-            <!--<div>-->
-                <!--<form th:action="@{/create-entry}" method="post">-->
-                    <!--<input type="text" placeholder="Entry name" name="entry-name">-->
-                    <!--<button class="btn-primary" type="submit">Add entry</button>-->
-                <!--</form>-->
-            <!--</div>-->
+            <div>
+                <p th:text="${session.user.getDiary().getName()}"></p>
+            </div>
+            <div>
+                <form th:action="@{/create-entry}" method="post">
+                    <input type="text" placeholder="Entry name" name="entry-name">
+                    <div class="form-group">
+                        <label for="textarea">Entry</label>
+                        <textarea class="form-control" id="textarea" rows="3"></textarea>
+                    </div>
+                    <button class="btn-primary" type="submit">Add entry</button>
+                </form>
+            </div>
             <div th:each="entry : ${session.user.getDiary().getEntries()}">
-                <p th:text="${entry}"></p>
+                <div class="container">
+                    <h1 th:text="${entry.getName()}"></h1>
+                    <div>
+                        <p th:text="${entry.getContent()}"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
