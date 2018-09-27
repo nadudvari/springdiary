@@ -1,6 +1,7 @@
 package com.example.springdiary.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Diary {
     private long id;
     private String name;
     @OneToMany(mappedBy = "diary")
-    private List<Entry> entries;
+    private List<Entry> entries = new ArrayList<>();
     @OneToOne
     private Owner owner;
 
