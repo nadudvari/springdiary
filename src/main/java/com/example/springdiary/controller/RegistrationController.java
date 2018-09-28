@@ -1,6 +1,7 @@
 package com.example.springdiary.controller;
 
 import com.example.springdiary.model.Owner;
+import com.example.springdiary.service.DiaryService;
 import com.example.springdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegistrationController {
 
     private UserService userService;
+    private DiaryService diaryService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService, DiaryService diaryService) {
         this.userService = userService;
+        this.diaryService = diaryService;
     }
 
     @GetMapping(path = "/registration")
@@ -31,6 +34,7 @@ public class RegistrationController {
             return "Username already taken";
         } else {
             userService.saveUser(owner);
+            diaryService.createNewDiary(owner.getUsername() + "'s Diary", owner);
             return "redirect:/";
         }
     }

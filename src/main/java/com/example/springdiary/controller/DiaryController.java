@@ -5,6 +5,7 @@ import com.example.springdiary.model.Owner;
 import com.example.springdiary.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,18 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
+
     @GetMapping(path = "/")
-    public String getMainPage() {
+    public String getMainPage(HttpSession session, Model model) {
+        if (session.getAttribute("user") != null) {
+            Owner owner = (Owner) session.getAttribute("user");
+            model.addAttribute("owner", owner);
+            if (diaryService.getDiaryByOwner(owner) != null) {
+                model.addAttribute("diary", diaryService.getDiaryByOwner(owner));
+                return "index";
+            }
+            return "index";
+        }
         return "index";
     }
 

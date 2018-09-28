@@ -23,7 +23,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <div th:if="${session.user} == null">
+    <div th:if="${owner} == null">
         <p>Please Sign In or Register</p>
         <div>
             <form th:action="@{/login}">
@@ -34,11 +34,11 @@
             </form>
         </div>
     </div>
-    <div th:if="${session.user} != null">
+    <div th:if="${owner} != null">
         <form th:action="@{/logout}">
             <button class="btn-danger">Logout</button>
         </form>
-        <div th:if="${session.user.getDiary()} == null">
+        <div th:if="${diary} == null">
             <form th:action="@{/create-diary}" method="post">
                 <div>
                     <input type="text" placeholder="Give a name to your diary" name="diary-name" required>
@@ -46,26 +46,31 @@
                 </div>
             </form>
         </div>
-        <div th:if="${session.user.getDiary()} != null">
+        <div th:if="${diary} != null">
             <div>
-                <p th:text="${session.user.getDiary().getName()}"></p>
+                <h2 th:text="${diary.getName()}"></h2>
             </div>
             <div>
                 <form th:action="@{/create-entry}" method="post">
                     <input type="text" placeholder="Entry name" name="entry-name">
                     <div class="form-group">
                         <label for="textarea">Entry</label>
-                        <textarea class="form-control" id="textarea" rows="3"></textarea>
+                        <textarea class="form-control" id="textarea" rows="3" name="entry-content"></textarea>
                     </div>
                     <button class="btn-primary" type="submit">Add entry</button>
                 </form>
             </div>
-            <div th:each="entry : ${session.user.getDiary().getEntries()}">
+            <div th:each="entry : ${diary.getEntries()}">
                 <div class="container">
-                    <h1 th:text="${entry.getName()}"></h1>
+                    <div>
+                        <h2 th:text="${entry.getName()}"></h2>
+                    </div>
                     <div>
                         <p th:text="${entry.getContent()}"></p>
                     </div>
+                    <form th:action="@{/entries/{id}(id=${entry.getId()})}" method="post">
+                        <button class="btn-danger">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>

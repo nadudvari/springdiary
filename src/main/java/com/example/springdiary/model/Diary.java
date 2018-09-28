@@ -11,7 +11,7 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    @OneToMany(mappedBy = "diary")
+    @OneToMany(mappedBy = "diary", fetch = FetchType.EAGER)
     private List<Entry> entries = new ArrayList<>();
     @OneToOne
     private Owner owner;
@@ -25,7 +25,11 @@ public class Diary {
     }
 
     public void addEntry(Entry entry) {
-        entries.add(entry);
+        entries.add(0, entry);
+    }
+
+    public void removeEntry(Entry entryToDelete) {
+        entries.remove(entryToDelete);
     }
 
     public long getId() {
