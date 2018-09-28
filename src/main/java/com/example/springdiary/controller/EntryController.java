@@ -5,6 +5,7 @@ import com.example.springdiary.service.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,12 @@ public class EntryController {
     public String addEntry(HttpSession session, @ModelAttribute("entry-name") String entryName, @ModelAttribute("entry-content") String entryContent) {
         Owner owner = (Owner) session.getAttribute("user");
         entryService.createNewEntry(entryName, entryContent, owner.getDiary());
+        return "redirect:/";
+    }
+
+    @PostMapping("/entries/{id}")
+    public String deleteEntry(@PathVariable("id") String id) {
+        entryService.deleteEntryById(id);
         return "redirect:/";
     }
 }

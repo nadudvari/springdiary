@@ -10,6 +10,7 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    @Column(columnDefinition = "text")
     private String content;
     private Date date;
     @ManyToOne
