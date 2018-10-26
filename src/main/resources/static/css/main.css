@@ -1,0 +1,83 @@
+body, html {
+    height: 100%;
+}
+
+.bg {
+    height: 100%;
+    background-size: cover;
+    background-color: #ffe851;
+}
+
+#entry-header {
+    font-style: italic;
+    font-size: 2rem;
+}
+
+#edit-text {
+    width: 500px;
+}
+
+#tag {
+    font-style: italic;
+    font-size: small;
+}
+
+.title {
+    font-size: 5rem;
+    text-align: center;
+    font-family: "Calling Heart", sans-serif;
+    color: #2b4fff;
+}
+
+#navBarTitle {
+    font-size: 3rem;
+}
+
+#registration-text {
+    font-size: 1em;
+}
+
+#registration-box {
+    text-align: center;
+    margin-top: 40px;
+    width: 70%;
+    color: #2b4fff;
+}
+
+#navbar-right {
+    margin-top: 7px;
+}
+
+#search {
+    margin-right: 10px;
+}
+
+#entryPanel {
+    margin: 30px 80px 30px 80px;
+}
+
+#panel-heading {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.panel-body, #navBar, #registration-box {
+    background: url("../img/smtg.jpg");
+}
+
+#entry-content, #entry-footer {
+    font-size: 0.85em;
+}
+
+#upper-add-entry {
+    margin-bottom: 10px;
+}
+
+#entry-label {
+    margin-left: 2px;
+}
+
+@font-face {
+    font-family: "Calling Heart";
+    src: url("fonts/Calling Heart.ttf");
+}

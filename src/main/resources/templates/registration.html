@@ -23,38 +23,41 @@
             crossorigin="anonymous"></script>
 
     <script src="/js/registration.js" defer></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
-<body>
+<body class="bg">
 <div class="container">
-
+    <h1 class="title">Spring Diary</h1>
     <div class="tm-main-content">
         <section class="tm-margin-b-l">
-            <h2 class="tm-main-title">Registration</h2>
+            <div class="col-md-offset-3">
+                <div class="jumbotron" align="center" id="registration-box">
+                    <h2 class="tm-main-title">Registration</h2>
+                    <p id="registration-text">Please fill in this form to create an account. If you already have an account you can <a
+                            href="/login">log in</a>. Password should be at least four characters.</p>
+                    <form action="#" th:action="@{/registration}" method="post" align="center">
 
-            <p align="center">Please fill in this form to create an account. If you already have an account you can <a
-                    href="/login">log in</a>. Password should be at least four characters.</p>
-            <div class="jumbotron" align="center" style="margin-top: 40px; width:60%">
-                <form action="#" th:action="@{/registration}" th:object="${owner}" method="post" align="center">
+                        <div class="form-group">
+                            <label><b>Name</b></label><br>
+                            <input type="text" placeholder="Enter Your Username" name="username"
+                                   required>
+                        </div>
 
-                    <div class="form-group">
-                        <label><b>Name</b></label><br>
-                        <input type="text" th:field="*{username}" placeholder="Enter Your Username" name="username"
-                               required>
-                    </div>
+                        <label><b>Password</b></label><br>
+                        <input type="password" placeholder="Enter Password" id="password"
+                               name="password" required><br><br>
 
-                    <label><b>Password</b></label><br>
-                    <input type="password" th:field="*{password}" placeholder="Enter Password" id="password"
-                           name="password" required><br><br>
+                        <label><b>Confirm Password</b></label><br>
+                        <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password"
+                               required><br>
+                        <span id='message'></span><br/><br/>
 
-                    <label><b>Confirm Password</b></label><br>
-                    <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password"
-                           required><br>
-                    <span id='message'></span><br/><br/>
-
-                    <button type="submit" id="register_button">Register</button>
-                    <input type="button" value="Cancel" onclick="window.location.href='/'"/>
-                </form>
+                        <button class="btn btn-default" type="submit" id="register_button" disabled>Register</button>
+                        <input class="btn btn-default" type="button" value="Cancel" onclick="window.location.href='/'"/>
+                    </form>
+                </div>
             </div>
+
         </section>
     </div>
 </div>

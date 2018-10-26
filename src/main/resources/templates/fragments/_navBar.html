@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Spring Diary</title>
+    <title>navBar</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -24,25 +24,29 @@
 
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
-<body class="bg">
-<div>
-    <h1 class="title">Spring Diary</h1>
-    <form action="#" th:action="@{/login}" method='POST'>
-        <div class="container container-table">
-            <div class="row vertical-center-row">
-                <div class="text-center col-md-4 col-md-offset-4">
-                    <h4>Log in to add today's entry</h4>
-                    <div>
-                        <input name="username" type="text" placeholder="Username" class="form-control mr-sm-2" aria-label="Username">
-                        <input name="password" type="password" placeholder="Password" class="form-control mr-sm-2" aria-label="Password">
-                    </div>
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-                </div>
+<body>
+    <nav class="navbar navbar-light" id="navBar" th:fragment="navBar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand title" id="navBarTitle" href="#">Spring Diary</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="navbar-right">
+                <li>
+                    <form class="form-inline" th:action="@{/search}" th:method="POST" id="search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search by tag" aria-label="Search" name="tag">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </form>
+                </li>
+                <li>
+                    <form action="#" th:action="@{/logout}" method="get">
+                        <button class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </form>
-</div>
-
-
+    </nav>
 </body>
 </html>

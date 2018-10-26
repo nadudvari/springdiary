@@ -21,56 +21,113 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
-<body>
+<body class="bg">
     <div th:if="${owner} == null">
-        <p>Please Sign In or Register</p>
-        <div>
-            <form th:action="@{/login}">
-                <button class="btn-success">Login</button>
-            </form>
-            <form th:action="@{/registration}">
-                <button class="btn-success">Register</button>
-            </form>
+        <div class="container container-table">
+            <div class="row vertical-center-row">
+                <div class="text-center col-md-4 col-md-offset-4">
+                    <h1 class="title">Spring Diary</h1>
+                    <h2>Please Sign In or Register</h2>
+                    <div>
+                        <form th:action="@{/login}">
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </form>
+                        <form th:action="@{/registration}">
+                            <button type="submit" class="btn btn-warning">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div th:if="${owner} != null">
-        <form th:action="@{/logout}">
-            <button class="btn-danger">Logout</button>
-        </form>
+        <div th:replace="fragments/_navBar :: navBar">&nbsp;</div>
         <div th:if="${diary} == null">
             <form th:action="@{/create-diary}" method="post">
                 <div>
                     <input type="text" placeholder="Give a name to your diary" name="diary-name" required>
-                    <button class="btn-primary" type="submit">Add diary</button>
+                    <button class="btn btn-primary" type="submit">Add diary</button>
                 </div>
             </form>
         </div>
         <div th:if="${diary} != null">
-            <div>
-                <h2 th:text="${diary.getName()}"></h2>
+            <div id="entry-label">
+                <h2 th:text="${diary.getName()}" class="text-center title"></h2>
             </div>
-            <div>
+            <div class="container">
                 <form th:action="@{/create-entry}" method="post">
-                    <input type="text" placeholder="Entry name" name="entry-name">
+                    <div id="upper-add-entry">
+                        <label for="textarea">Entry</label><br>
+                        <input type="text" placeholder="Entry name" name="entry-name"><br>
+                    </div>
                     <div class="form-group">
-                        <label for="textarea">Entry</label>
                         <textarea class="form-control" id="textarea" rows="3" name="entry-content"></textarea>
                     </div>
-                    <button class="btn-primary" type="submit">Add entry</button>
+                    <input type="text" placeholder="Tag" name="tag">
+                    <button class="btn btn-primary" type="submit">Add entry</button>
                 </form>
             </div>
-            <div th:each="entry : ${diary.getEntries()}">
-                <div class="container">
-                    <div>
-                        <h2 th:text="${entry.getName()}"></h2>
+            <div th:each="entry : ${entries}">
+                <div class="panel-group" id="entryPanel">
+                    <div class="panel panel-info">
+                        <div class="panel-heading" id="panel-heading">
+                            <h3 class="panel-title"  id="entry-header">
+                                <a data-toggle="collapse" th:href="'#' + ${entry.getId()}" th:text="${entry.getName()}">Entry name</a>
+                            </h3>
+                        </div>
+                        <div th:id="${entry.getId()}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <blockquote>
+                                    <p th:text="${entry.getContent()}" id="entry-content"></p>
+                                    <a th:href="@{/sort-entries/{tag}(tag=${entry.getTag()})}" th:text="${entry.getTag()}" id="tag"></a>
+                                    <div th:if="${entry.getDate()} != null">
+                                        <footer th:text="${entry.getFormattedDate()}" class="pull-right" id="entry-footer"></footer>
+                                    </div>
+                                </blockquote>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-1">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#editModal">Edit</button>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <form th:action="@{/delete-entry/{id}(id=${entry.getId()})}" th:method="delete">
+                                                <button class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p th:text="${entry.getContent()}"></p>
+                </div>
+                <div>
+                    <div id="editModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" th:text="${entry.getName()}">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/edit-entry/{id}(id=${entry.getId()})}" th:method="put">
+                                        <label for="edit-text">Entry</label>
+                                        <div class="form-group">
+                                            <textarea th:text="${entry.getContent()}" id="edit-text" rows="3" name="edit-entry-content"></textarea>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <form th:action="@{/entries/{id}(id=${entry.getId()})}" method="post">
-                        <button class="btn-danger">Delete</button>
-                    </form>
+                </div>
                 </div>
             </div>
         </div>
